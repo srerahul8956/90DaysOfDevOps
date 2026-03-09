@@ -121,7 +121,72 @@ bash calls fork()
 Child process created
 Child runs ls
 
+
+
 **3. What systemd does and why it matters**
 systemd is the init system and service manager used by most modern Linux distributions.
 It is the first process started after the kernel boots and it runs with PID 1.
 It manages system startup, services, and background processes (daemons).
+
+systemd is the init system used in modern Linux distributions. It is the first process started after the kernel boots and runs with PID 1. It manages system services, handles service dependencies, controls system startup targets, and provides centralized logging through journald. It matters because it ensures reliable service management, faster boot times, and automatic recovery of services in production systems.
+
+**4. Explain process states (running, sleeping, zombie, etc.)**
+**-- Running**
+A process is in Running state when it is either:
+Currently executing on the CPU, or
+Ready to run and waiting for CPU scheduling.
+**Example:**
+yes > /dev/null
+
+This command consumes CPU, so it appears as R.
+**Example output:**
+**PID  STAT COMMAND**
+2450 R    yes
+
+**-- Sleeping (S)**
+This is the most common state.
+**A process is sleeping when it is waiting for some event, such as:**
+user input
+disk read/write
+network response
+**Example:**
+A web server waiting for a request.
+**Example output:**
+**PID  STAT COMMAND**
+3021 S    nginx
+
+There are two types of sleeping:
+**Interruptible Sleep (S)**
+The process can be woken up by signals.
+**Example:**
+waiting for keyboard input
+waiting for network data
+
+**Uninterruptible Sleep (D)**
+The process is waiting for I/O operations, usually disk operations.
+**Example:**
+**PID  STAT COMMAND**
+4210 D    mysqld
+The process cannot be interrupted until the I/O finishes.
+
+**-- Zombie (Z)**
+A Zombie process is a process that:
+has finished execution ,but still has an entry in the process table
+**Reason:**
+The parent process has not collected its exit status.
+**Example:**
+**PID  STAT COMMAND**
+4310 Z    python
+**Important points:**
+Zombie processes use almost no resources
+They only occupy a process ID
+**To view zombies:**
+ps aux | grep Z
+
+| State | Meaning                            |
+| ----- | ---------------------------------  |
+| **R** | Running or ready to run, Using CPU |
+| **S** | Sleeping (waiting for event)       |
+| **D** | Waiting for disk I/O               |
+| **T** | Stopped                            |
+| **Z** | Zombie (finished but not cleaned)  |
