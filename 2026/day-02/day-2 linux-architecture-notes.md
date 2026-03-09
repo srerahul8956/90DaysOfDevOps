@@ -190,3 +190,13 @@ ps aux | grep Z
 | **D** | Waiting for disk I/O               |
 | **T** | Stopped                            |
 | **Z** | Zombie (finished but not cleaned)  |
+
+**5. List 5 commands devops engineer would use daily**
+ls -l => List Files and Directories, Used to see files and directories in a folder.
+cd /var/log => Change Directory, Used to navigate between directories. 
+ps aux => Check Running Processes, Used to see what processes are running in the system.
+top => Shows real-time system performance. CPU usage,memory usage,running processes.
+systemctl status nginx => Manage Services, Used to manage services controlled by systemd.
+
+
+
