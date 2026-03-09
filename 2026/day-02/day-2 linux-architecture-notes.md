@@ -100,3 +100,28 @@ Shows all running processes in the system.
 root     1  0.0  0.1  systemd
 rahul  2450 0.1  0.3  bash
 rahul  3021 0.0  0.1  vim
+
+       **2. How Processes Are Created**
+Processes are usually created using two main system calls:
+1️⃣ fork()
+fork() creates a child process by copying the parent process.
+**Example flow:**
+Parent Process (bash)
+        │
+        └── fork()
+              │
+              └── Child Process
+**Example:**
+When you run:
+ls
+
+**Steps:**
+Shell (bash) runs
+bash calls fork()
+Child process created
+Child runs ls
+
+**3. What systemd does and why it matters**
+systemd is the init system and service manager used by most modern Linux distributions.
+It is the first process started after the kernel boots and it runs with PID 1.
+It manages system startup, services, and background processes (daemons).
